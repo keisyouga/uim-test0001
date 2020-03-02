@@ -1,0 +1,71 @@
+
+* about
+
+creating uim module test.
+
+- v0.1.scm
+  - uim module that just do switch on/off state. based on direct.scm.
+
+- v0.2.scm
+  - commit preedit string. cancel preedit string.
+
+- v0.3.scm
+  - open candidate window (alt-o). close candidate window (alt-c).
+
+- v0.4.scm
+  - select next candidate (ctrl-n), prev candidate (ctrl-p).
+
+- v0.5.scm
+  - candidate window next page (next). candidate window prev page (prior).
+
+- v0.6.scm
+  - commit selected candidate.
+
+- v0.7.scm
+  - convert hex => unicode (space key).
+
+- a0.1.scm a0.1.c
+  - library test
+
+* use
+
+put NAME.scm in ~/.uim.d/plugin/
+
+#+BEGIN_SRC
+$ uim-module-manager --register NAME --path ~/.uim.d/plugin
+#+END_SRC
+
+for convenience:
+ln -s * test0001.scm
+
+
+* reference
+
+- from uim source
+  - scm/direct.scm
+  - scm/im.scm
+  - scm/generic.scm
+  - scm/tutcode.scm
+  - scm/elatin.scm
+  - scm/m17nlib.scm
+  - doc/PLUGIN
+  - fep/callbacks.c
+  - uim/uim-scm-abbrev.h
+
+* notes
+
+open candidate window
+  (im-activate-candidate-selector context length-of-cands display-page-limit)
+
+close candidate window
+  (im-deactivate-candidate-selector context)
+
+show candidate page at
+  (im-select-candidate context cands-index)
+
+(get-candidate-handler context index accel-enum-hint)
+called several times with cands' index when activate-candidate-selector
+return string of list (cand index annotation)
+
+(set-candidate-index-handler context index)
+called when im-shift-page-candidate or cand is selected on uim-candwin.
